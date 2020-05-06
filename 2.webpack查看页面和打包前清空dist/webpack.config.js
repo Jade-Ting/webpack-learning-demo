@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const isDev = process.env.NODE_ENV === 'development' // 判断是否是开发环境
 const config = require('./public/config')[isDev ? 'dev' : 'build']
 
@@ -18,7 +19,10 @@ module.exports = {
             template: './public/index.html',
             filename: 'index.html', //打包后的文件名
             config: config.template
-        })
+        }),
+
+        // 打包前清空dist文件
+        new CleanWebpackPlugin()
     ],
     devServer: {
         // contenBase告诉服务器从哪个目录中提供内容，但是如果已经配置 htmlWebpackPlugin，则contentBase不起作用

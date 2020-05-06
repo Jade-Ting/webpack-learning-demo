@@ -193,3 +193,35 @@
     }
     ```
     其他配置可以查看 [开发工具-Devtool](http://webpack.html.cn/configuration/devtool.html)
+
+
+### 打包时自动先清空build文件夹
+
+> 每次打包时，需要手动清空 dist 目录，设置成打包编译时自动清空
+
+    1. 安装 `clean-webpack-plugin` 插件
+
+    ```
+    npm install clean-webpack-plugin -D
+
+    ```
+    2. 配置 webpack
+
+    ```js
+    //webpack.config.js
+    const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+    module.exports = {
+        //...
+        plugins: [
+            //不需要传参数喔，它可以找到 outputPath
+            new CleanWebpackPlugin() 
+        ]
+    }
+
+    // 可以指定不删除某些目录
+    new CleanWebpackPlugin({
+        cleanOnceBeforeBuildPatterns:['**/*', '!dll', '!dll/**'] //不删除dll目录下的文件
+    })
+
+    ```
