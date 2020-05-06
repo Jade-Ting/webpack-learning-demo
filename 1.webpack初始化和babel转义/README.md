@@ -131,3 +131,20 @@
     ```
 
 9. 再次构建 `npx webpack --mode=development`， 此时 `dist/main.js`中已经被编译成低版本的js代码。
+
+10. 以上在构建时使用了`npx webpack --mode=development`，是为了构建开发环境的编译，可以直接在webpack中配置是开发环境还是生产环境。
+
+    ```js
+    module.exports = {
+        mode: 'development',
+        module: {
+            // ...
+        }
+    }
+
+    // mode: 'development'： 将 process.env.NODE_ENV 的值设置为 development， 启用 `NamedChunksPlugin`和`NamedModulesPlugin`
+
+    // mode: 'production': 将 process.env.NODE_ENV 的值设置为 production，启用 `FlagDependencyUsagePlugin`,`FlagIncludedChunksPlugin`,`ModuleConcatenationPlugin`,`NoEmitOnErrorsPlugin`,`OccurrenceOrderPlugin`,`SideEffectsFlagPlugin`和`UglifyJsPlugin`
+    ```
+
+    现在可以直接用 `npx webpack`进行编译
