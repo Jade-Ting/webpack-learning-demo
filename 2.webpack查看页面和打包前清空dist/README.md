@@ -131,10 +131,13 @@
     npm install --save-dev webpack-dev-server
     ```
     2. 修改package.json
+
+    --open => 编译完成后自动打开浏览器
+
     ```json
     {
         "scripts": {
-            "dev": "cross-env NODE_ENV=development webpack-dev-server",
+            "dev": "cross-env NODE_ENV=development webpack-dev-server  --open",
             "build": "cross-env NODE_ENV=production webpack"
         },
     }
@@ -151,7 +154,7 @@
         devServer: {
             // contenBase告诉服务器从哪个目录中提供内容，但是如果已经配置 htmlWebpackPlugin，则contentBase不起作用
             // contentBase: path.join(__dirname, 'public') 
-            publicPath: '/assets/', // 指定打包目录
+            publicPath: '/', // 不设置或设置为 '/' 可以直接通过 localhost:3001访问页面，若设置成 '/assets/' 则需要 http://localhost:3001/assets/ 才能直接访问页面，此时http://localhost:3001看到的是文件目录
             host: '0.0.0.0', // 指定使用一个host，默认是localhost
             port: '3000', // 修改端口号，默认是8080
             quiet: false, // 默认不启用，如果启用则除了初始启动信息其他的内容都不会被打印到控制台，也就是webpack的警告或错误在控制台都不可见
@@ -168,6 +171,11 @@
             }
         }
     }
+
+
+    【devServer.publicPath】 
+    1. 不设置或设置为 '/' 可以直接通过 localhost:3001访问页面，若设置成 '/assets/' 则需要 http://localhost:3001/assets/ 才能直接访问页面，此时http://localhost:3001看到的是文件目录
+    2. 确保 devServer.publicPath 总是以斜杠(/)开头和结尾。
 
     ```
 - 如果在 `src/index.js` 中加上 `console.log('aaa')`, 在浏览器控制台中输出
